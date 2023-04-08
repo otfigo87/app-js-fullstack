@@ -1,11 +1,17 @@
 const express = require("express");
+// const dotenv = require("dotenv").config();
+const connectDB = require("./config/db");
 const app = express();
 const port = 3000;
+
+//connect to MDB
+connectDB();
 
 //Middleware
 app.use(express.json())
 app.use(express.urlencoded({ extended: false}))
 
+//routes
 app.use("/post", require("./routes/post.routes"));
 
 
