@@ -1,8 +1,10 @@
 const express = require("express");
-// const dotenv = require("dotenv").config();
+const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const app = express();
 const port = 3000;
+
+dotenv.config()
 
 //connect to MDB
 connectDB();
