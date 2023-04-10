@@ -40,3 +40,29 @@ module.exports.deletePost = async (req,res) => {
     await post.remove();
     res.status(200).json("post deleted" + req.params.id);
 }
+
+//like & dislike
+module.exports.likePost = async function (req, res) {
+    try {
+        await PostModel.findByIdAndUpdate(
+          req.params.id,
+          { $addToSet: { likers: req.body.userId } },
+          { new: true }
+        ).then((data) => res.status(200).send(data));
+        
+    } catch(err) {
+        res.status(400).json(err);
+    }
+}
+
+module.exports.dislikePost = async function (req, res) {
+  try {
+    await PostModel.findByIdAndUpdate(
+      req.params.id,
+      { $pull: { likers: req.body.userId } },
+      { new: true }
+    ).then((data) => res.status(200).send(data));
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
